@@ -23,9 +23,6 @@ package Bugzilla::Extension::Markdown;
 use strict;
 use base qw(Bugzilla::Extension);
 
-# This code for this is in ./extensions/Markdown/lib/Util.pm
-use Bugzilla::Extension::Markdown::Util;
-
 use Text::Markdown 'markdown';
 
 our $VERSION = '0.01';
