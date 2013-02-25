@@ -17,12 +17,7 @@ Bugzilla core.
 A patch to add this hook is included : `bugzilla-4_5.patch`.
 
  1. cd bugzilla
- 2. Apply the patch:
-
-    $ patch -p 0 -i bugzilla-4_5.patch 
-    patching file Bugzilla/Hook.pm
-    patching file Bugzilla/Template.pm
-    patching file extensions/Example/Extension.pm
+ 2. Apply the patch using `patch -p 0 -i bugzilla-4_5.patch`
 
 ## Features
 
