@@ -3,7 +3,7 @@
 ## Installation
 
  1. Copy the `Markdown` directory into the Bugzilla extensions directory.
- 2. Run `chcksetup.pl`
+ 2. Run `checksetup.pl`
  
 To disable:
 
@@ -32,7 +32,7 @@ A patch to add this hook is included : `bugzilla-4_5.patch`.
  - Needs some more testing
 
  - The first line of a quoted comment ("> ") comment is not
-   highlighted in the sme way as subsequent lines.
+   highlighted in the same way as subsequent lines.
    
  - The automatically added duplicate comments are displayed as bold
    because the text is wrapped in `***`.
