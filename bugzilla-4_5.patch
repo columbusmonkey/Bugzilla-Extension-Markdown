@@ -1,6 +1,6 @@
 === modified file 'Bugzilla/Hook.pm'
 --- Bugzilla/Hook.pm	2012-12-18 20:17:52 +0000
-+++ Bugzilla/Hook.pm	2013-02-25 20:14:34 +0000
++++ Bugzilla/Hook.pm	2013-02-25 19:21:45 +0000
 @@ -352,6 +352,20 @@
  
  =back
@@ -25,21 +25,21 @@
 
 === modified file 'Bugzilla/Template.pm'
 --- Bugzilla/Template.pm	2013-02-19 17:24:20 +0000
-+++ Bugzilla/Template.pm	2013-02-25 20:14:34 +0000
-@@ -293,6 +293,9 @@
-     }
-     $text =~ s/$chr1\0/\0/g;
++++ Bugzilla/Template.pm	2013-02-25 21:08:17 +0000
+@@ -215,6 +215,9 @@
+ 
+     $text = html_quote($text);
  
 +    Bugzilla::Hook::process('bug_finalize_comment',
-+        { text => \$text, bug => $bug, comment => $comment });
++                            { text => \$text, bug => $bug, comment => $comment });
 +
-     return $text;
- }
- 
+     # Color quoted text
+     $text =~ s~^(&gt;.+)$~<span class="quote">$1</span >~mg;
+     $text =~ s~</span >\n<span class="quote">~\n~g;
 
 === modified file 'extensions/Example/Extension.pm'
 --- extensions/Example/Extension.pm	2013-01-01 22:59:13 +0000
-+++ extensions/Example/Extension.pm	2013-02-25 20:14:34 +0000
++++ extensions/Example/Extension.pm	2013-02-25 19:21:45 +0000
 @@ -234,6 +234,14 @@
      push (@$fields, "example")
  }

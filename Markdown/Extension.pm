@@ -25,39 +25,17 @@ use base qw(Bugzilla::Extension);
 
 use Text::Markdown 'markdown';
 
-our $VERSION = '0.01';
-
-# See the documentation of Bugzilla::Hook ("perldoc Bugzilla::Hook" 
-# in the bugzilla directory) for a list of all available hooks.
-
-my $pre = 0;
-
-sub bug_format_comment {
-  my ($self, $args) = @_;
-
-  return unless $pre;
-
-  my $regexes = $args->{regexes};
-  my $text_ref = $args->{text};
-
-  return unless $regexes && $text_ref;
-  warn "A" . markdown($$text_ref);
-  push(@$regexes, { match => qr/^.*$/s,
-		    replace => markdown($$text_ref) });
-
-}
+our $VERSION = '0.02';
 
 sub bug_finalize_comment {
     my ($self, $args) = @_;
 
-    return if $pre;
-
     my $text_ref = $args->{text};
 
     return unless $text_ref;
- warn "AA: " . $$text_ref;
+
     my $html = markdown($$text_ref);
-    warn "AB: " . $html;
+
     ${$args->{text}} = $html;
 
 }

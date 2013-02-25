@@ -4,6 +4,10 @@
 
  1. Copy the `Markdown` directory into the Bugzilla extensions directory.
  2. Run `chcksetup.pl`
+ 
+To disable:
+
+ 1. `touch extensions/Markdown/disabled`
 
 ## Status
 
@@ -29,6 +33,9 @@ A patch to add this hook is included : `bugzilla-4_5.patch`.
 
  - The first line of a quoted comment ("> ") comment is not
    highlighted in the sme way as subsequent lines.
+   
+ - The automatically added duplicate comments are displayed as bold
+   because the text is wrapped in `***`.
 
 ## Future
 
