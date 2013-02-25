@@ -1,0 +1,58 @@
+=== modified file 'Bugzilla/Hook.pm'
+--- Bugzilla/Hook.pm	2012-12-18 20:17:52 +0000
++++ Bugzilla/Hook.pm	2013-02-25 20:14:34 +0000
+@@ -352,6 +352,20 @@
+ 
+ =back
+ 
++=head2 bug_finalize_comment
++
++Allows you to do custom processing on comments I<just> before they are
++displayed. See the C<bug_format_comment> hook for a more structured
++approach for simple comment manipulation.
++
++This hook is run B<after> Bugzilla security processing to prevent
++injection-type problems, B<SO TAKE CARE TO ENSURE SAFE OUTPUT>.
++
++Params: The I<text>, I<bug> and I<comment> parameters are the same as
++the C<bug_format_comment> hook below.
++
++=back
++
+ =head2 bug_format_comment
+ 
+ Allows you to do custom parsing on comments before they are displayed. You do
+
+=== modified file 'Bugzilla/Template.pm'
+--- Bugzilla/Template.pm	2013-02-19 17:24:20 +0000
++++ Bugzilla/Template.pm	2013-02-25 20:14:34 +0000
+@@ -293,6 +293,9 @@
+     }
+     $text =~ s/$chr1\0/\0/g;
+ 
++    Bugzilla::Hook::process('bug_finalize_comment',
++        { text => \$text, bug => $bug, comment => $comment });
++
+     return $text;
+ }
+ 
+
+=== modified file 'extensions/Example/Extension.pm'
+--- extensions/Example/Extension.pm	2013-01-01 22:59:13 +0000
++++ extensions/Example/Extension.pm	2013-02-25 20:14:34 +0000
+@@ -234,6 +234,14 @@
+     push (@$fields, "example")
+ }
+ 
++sub bug_finalize_comment {
++    my ($self, $args) = @_;
++    
++    # This appends a note to each comment
++    ${$args->{text}} .= "Extra comment note.";
++
++}
++
+ sub bug_format_comment {
+     my ($self, $args) = @_;
+     
+
